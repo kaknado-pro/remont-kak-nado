@@ -1,8 +1,12 @@
-# «Как надо» — локальная копия сайта
+# «Как надо» — сайт (копия 1:1)
 
-Точная копия лендинга [remont-kak-nado.github.io](https://remont-kak-nado.github.io/) со всеми изображениями, видео, шрифтами, стилями и скриптами. Файлы сохранены с исходной структурой путей, поэтому страница работает без правок.
+Точная копия лендинга [remont-kak-nado.github.io](https://remont-kak-nado.github.io/) со всеми изображениями, видео, шрифтами, стилями и скриптами.
 
-## Запуск
+**Опубликован на GitHub Pages:** https://voroninded1987-dot.github.io/remont-kak-nado/
+
+Репозиторий: [github.com/voroninded1987-dot/remont-kak-nado](https://github.com/voroninded1987-dot/remont-kak-nado)
+
+## Запуск локально
 
 Из папки проекта:
 
@@ -21,6 +25,7 @@ python3 -m http.server 8780
 - `assets/js/app.min.js` — слайдеры, модальные окна, квиз, карта и меню;
 - `send.js` — валидация форм и отправка заявок в Telegram;
 - `thankyou.html` — локальная страница «Спасибо» после отправки;
+- `assets/img/agency-logo.png` — логотип Exponent Digital (шапка и подвал, ссылка на сайт агентства);
 - `assets/img`, `assets/projects`, `assets/fonts` — изображения, видео и шрифты.
 
 ## Формы
