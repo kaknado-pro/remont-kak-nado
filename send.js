@@ -4,25 +4,29 @@
  * Отправка заявок сайта
  * ---------------------------------------------------------------------
  * Все формы с классом .form-submit (квиз, обратный звонок, общая форма)
- * отправляются в Telegram через Bot API — без сервера.
+ * отправляются на рабочий backend сайта (sendmail.php) — без сервера на
+ * стороне GitHub Pages. Опционально можно включить дублирование заявок
+ * в Telegram, заполнив BOT_TOKEN и CHAT_ID.
  *
- * Чтобы заявки реально приходили, заполните два значения:
+ * Telegram (необязательно):
  *   BOT_TOKEN — токен бота, созданного у @BotFather (например,
  *               "7123456789:AAH...xyz");
  *   CHAT_ID   — id чата, куда слать заявки. Свой id можно узнать у
- *               бота @userinfobot или после первого сообщения боту
- *               через https://api.telegram.org/bot<TOKEN>/getUpdates
+ *               бота @userinfobot.
  *
- * Пока значения пустые, формы работают в демо-режиме: проверяют
- * телефон и ведут на страницу «Спасибо», но заявка никуда не уходит.
+ * По умолчанию (если токен не заполнен) заявки уходят в
+ * PRODUCTION_SEND_URL — на тот же backend, что и основной сайт.
  * =================================================================== */
 
 const CONFIG = {
-  BOT_TOKEN: "",          // ← вставьте токен бота
-  CHAT_ID: "",            // ← вставьте id чата
+  BOT_TOKEN: "",          // ← необязательно: токен бота для дубля в Telegram
+  CHAT_ID: "",            // ← необязательно: id чата для дубля в Telegram
   THANKYOU_URL: "./thankyou.html",
   SUBMIT_DELAY_MS: 800,   // минимальная задержка, чтобы был виден статус кнопки
 };
+
+// Рабочий backend основного сайта — сюда уходят заявки по умолчанию.
+const PRODUCTION_SEND_URL = "https://remont-kaknado.ru/sendmail.php";
 
 // Доступно из консоли браузера для проверки (window.SEND_CONFIG)
 window.SEND_CONFIG = CONFIG;
@@ -121,7 +125,7 @@ function buildMessage(data) {
   return lines.join("\n");
 }
 
-/* ----------------------- отправка в Telegram ---------------------- */
+/* ----------------------- отправка заявки --------------------------- */
 
 async function sendToTelegram(text) {
   const url = "https://api.telegram.org/bot" + CONFIG.BOT_TOKEN + "/sendMessage";
@@ -140,6 +144,20 @@ async function sendToTelegram(text) {
     throw new Error(json && json.description ? json.description : "HTTP " + response.status);
   }
   return json;
+}
+
+function sendToProduction(form) {
+  // Отправка в backend основного сайта. Запрос без CORS-чтения ответа:
+  // данные доходят до сервера, браузер получает opaque-ответ.
+  const fd = new FormData(form);
+  fd.append("newToken", Date.now().toString(36) + Math.random().toString(36).slice(2));
+  const utm = utmQuery();
+  Object.keys(utm).forEach(function (k) { fd.append(k, utm[k]); });
+  return fetch(PRODUCTION_SEND_URL, {
+    method: "POST",
+    body: fd,
+    mode: "no-cors",
+  });
 }
 
 /* ---------------------- UI-состояния формы ------------------------ */
@@ -217,19 +235,17 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     if (CONFIG.BOT_TOKEN && CONFIG.CHAT_ID) {
-      sendToTelegram(message)
-        .then(function () {
-          form.reset();
-          finish();
-        })
-        .catch(fail);
-    } else {
-      // Демо-режим: токен не настроен
-      console.warn("Отправка не настроена: укажите BOT_TOKEN и CHAT_ID в send.js");
-      window.setTimeout(function () {
-        form.reset();
-        finish();
-      }, CONFIG.SUBMIT_DELAY_MS);
+      // Дубль в Telegram (необязательно) + отправка в backend сайта
+      sendToTelegram(message).catch(function (err) {
+        console.error("Telegram-дубль не отправлен:", err);
+      });
     }
+
+    sendToProduction(form)
+      .then(function () {
+        form.reset();
+        window.setTimeout(finish, CONFIG.SUBMIT_DELAY_MS);
+      })
+      .catch(fail);
   });
 });
