@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Спасибо! Заявка отправлена</title>
+	<style>
+		@font-face {
+			font-family: "Montserrat";
+			src: url("./assets/fonts/Montserrat-Regular.woff2") format("woff2"),
+				url("./assets/fonts/Montserrat-Regular.woff") format("woff");
+			font-weight: 400;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: "Montserrat";
+			src: url("./assets/fonts/Montserrat-SemiBold.woff2") format("woff2"),
+				url("./assets/fonts/Montserrat-SemiBold.woff") format("woff");
+			font-weight: 600;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: "Montserrat";
+			src: url("./assets/fonts/Montserrat-Bold.woff2") format("woff2"),
+				url("./assets/fonts/Montserrat-Bold.woff") format("woff");
+			font-weight: 700;
+			font-display: swap;
+		}
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body {
+			font-family: "Montserrat", Arial, sans-serif;
+			background: #052443;
+			color: #fff;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 24px;
+		}
+		.card {
+			max-width: 520px;
+			width: 100%;
+			text-align: center;
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 20px;
+			padding: 56px 36px;
+		}
+		.check {
+			width: 88px;
+			height: 88px;
+			border-radius: 50%;
+			background: #35463e;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 28px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 10px 25px rgba(255, 255, 255, 0.15);
+		}
+		.check svg { width: 40px; height: 40px; }
+		h1 {
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 1.2;
+			margin-bottom: 16px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.55;
+			color: rgba(255, 255, 255, 0.85);
+			margin-bottom: 28px;
+		}
+		a.phone {
+			display: inline-block;
+			color: #fff;
+			text-decoration: none;
+			font-size: 20px;
+			font-weight: 600;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+			padding-bottom: 2px;
+		}
+		a.phone:hover { border-color: #fff; }
+		a.back {
+			display: inline-block;
+			margin-top: 28px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.7);
+			text-decoration: none;
+		}
+		a.back:hover { color: #fff; }
+		@media (max-width: 560px) {
+			h1 { font-size: 26px; }
+			.card { padding: 44px 24px; }
+		}
+	</style>
+</head>
+<body>
+	<div class="card">
+		<div class="check">
+			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M4.5 12.5L9.5 17.5L19.5 7" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</div>
+		<h1>Спасибо!<br>Ваша заявка отправлена</h1>
+		<p>Мы свяжемся с вами в течение 10 минут в рабочее время — по тому способу связи, который вы указали в форме.</p>
+		<a class="phone" href="tel:+79677000088">+7 967 700 00 88</a>
+		<br>
+		<a class="back" href="./index.html">&larr; Вернуться на сайт</a>
+	</div>
+</body>
+</html>
