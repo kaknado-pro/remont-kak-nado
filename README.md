@@ -2,9 +2,9 @@
 
 Точная копия лендинга [remont-kak-nado.github.io](https://remont-kak-nado.github.io/) со всеми изображениями, видео, шрифтами, стилями и скриптами.
 
-**Опубликован на GitHub Pages:** https://voroninded1987-dot.github.io/remont-kak-nado/
+**Опубликован на GitHub Pages:** https://kaknado-pro.github.io/remont-kak-nado/
 
-Репозиторий: [github.com/voroninded1987-dot/remont-kak-nado](https://github.com/voroninded1987-dot/remont-kak-nado)
+Репозиторий: [github.com/kaknado-pro/remont-kak-nado](https://github.com/kaknado-pro/remont-kak-nado)
 
 ## Запуск локально
 
